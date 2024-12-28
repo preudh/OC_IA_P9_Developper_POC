@@ -1,0 +1,6 @@
+Dans le terminal, exécuter les commandes suivantes:
+
+streamlit run D:\OC_IA\P9\OC_IA_P9_Developper_POC\app.py
+
+Ensemble complet des dépendances (environnement conda et pip):
+conda env export > environment.yml
