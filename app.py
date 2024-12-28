@@ -20,6 +20,9 @@ def predict_image(image, model, transform):
         _, prediction = torch.max(output, 1)
     return prediction.item()
 
+# Charger le fichier CSV contenant les correspondances
+labels_df = pd.read_csv("data/flipkart_images_labels.csv")
+
 # Chemin du dataset
 dataset_path = "data/Images/"
 categories = os.listdir(dataset_path)
@@ -73,6 +76,12 @@ if selected_category:
         vgg_prediction = predict_image(image, vgg_model, transform)
         vit_prediction = predict_image(image, vit_model, transform)
 
+        # Obtenir le label réel depuis le DataFrame
+        real_label = labels_df[labels_df['image'] == selected_image]['label'].values[0]
+        real_category = labels_df[labels_df['image'] == selected_image]['category'].values[0]
+
+        # Afficher les résultats
+        st.write(f"Label réel : {real_category} (ID : {real_label})")
         st.write(f"Prédiction avec le modèle VGG16 (baseline) : Catégorie {vgg_prediction}")
         st.write(f"Prédiction avec le modèle ViT (modèle amélioré) : Catégorie {vit_prediction}")
 
@@ -94,3 +103,4 @@ st.markdown("""
     }
     </style>
     """, unsafe_allow_html=True)
+
