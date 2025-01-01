@@ -1,0 +1,35 @@
+# Ignorer les fichiers de contrôle de version
+.git
+.github
+.gitignore
+
+# Ignorer les fichiers inutiles de Python
+*.pyc
+__pycache__
+
+# Ignorer les notebooks (si non nécessaires dans le conteneur)
+*.ipynb
+notebooks/
+
+# Ignorer les fichiers sensibles ou temporaires
+.env
+*.log
+*.tmp
+*.bak
+
+# Ignorer les modèles ML lourds (à inclure si nécessaires seulement)
+
+
+# Garder le dossier data mais ignorer les fichiers temporaires dedans
+# Si vous avez des fichiers volumineux inutiles, précisez-les ici
+
+
+# Ignorer les fichiers de cache et temporaires de Docker
+Dockerfile~
+.dockerignore~
+
+# Ignorer les dossiers spécifiques à l'IDE
+.idea/
+.vscode/
+
+

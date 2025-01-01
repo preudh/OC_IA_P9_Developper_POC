@@ -4,3 +4,17 @@ streamlit run D:\OC_IA\P9\OC_IA_P9_Developper_POC\app.py
 
 Ensemble complet des dépendances (environnement conda et pip):
 conda env export > environment.yml
+
+# Convertir environnement.yml en requirements.txt et s
+# conda list --export > requirements.txt
+
+## Rebuilder l'image docker en local
+docker build -t mon-image:latest .
+
+# tester l'image docker
+docker run -p 8501:8501 mon-image:latest
+
+# Libérer le port 8501 (exemple)
+docker ps
+docker stop 3a787c32f9a5
+docker run -p 8501:8501 mon-image:latest
