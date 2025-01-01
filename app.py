@@ -6,6 +6,37 @@ import torch
 from torchvision import transforms
 import plotly.express as px
 
+"""
+Dashboard Streamlit : Analyse Exploratoire et Preuve de Concept pour la Classification d'Images
+
+Ce dashboard répond aux objectifs suivants :
+
+1. **Analyse Exploratoire des Données :**
+   - Visualisation interactive de la distribution des catégories via un graphique (bar chart).
+   - Présentation d'exemples d'images pour chaque catégorie afin d'illustrer le contenu du dataset.
+
+2. **Moteur de Prédiction :**
+   - Permet la sélection d'images individuelles via une liste déroulante.
+   - Offre le choix entre deux modèles de classification :
+       - **VGG16 (baseline)**
+       - **ViT (improved)**
+
+3. **Résultat des Prédictions :**
+   - Affiche la prédiction pour l'image sélectionnée.
+   - Compare la prédiction avec le label réel issu du fichier CSV.
+   - Intègre une validation utilisateur interactive pour confirmer ou rejeter la prédiction.
+
+4. **Accessibilité et Conformité aux Critères WCAG :**
+   - Contraste des couleurs et navigation clavier.
+   - Captions et descriptions textuelles pour les éléments visuels.
+
+5. **Déploiement :**
+   - sur azure
+
+Cette application sert de preuve de concept, démontrant les résultats des prédictions et les améliorations apportées par l'utilisation du modèle ViT par rapport à VGG16.
+"""
+
+
 try:
     # 1) Charger directement les modèles complets
     vgg_model = torch.load("model/vgg_model_best_weights.pth", map_location="cpu")
@@ -105,19 +136,22 @@ try:
                 ),
             ])
 
-            def predict_image(img, model, transform_fn):
+            def predict_image(img, model, transform_fn, is_vit=False):
                 model.eval()
                 img_tensor = transform_fn(img).unsqueeze(0)
                 with torch.no_grad():
                     output = model(img_tensor)
+                    # Si le modèle est ViT, accéder à la clé 'logits'
+                    if is_vit:
+                        output = output.logits
                     _, pred = torch.max(output, 1)
                 return pred.item()
 
             # Selon le choix de l'utilisateur, on utilise VGG ou ViT
             if chosen_model == "VGG16 (baseline)":
-                prediction = predict_image(image, vgg_model, transform)
+                prediction = predict_image(image, vgg_model, transform, is_vit=False)
             else:
-                prediction = predict_image(image, vit_model, transform)
+                prediction = predict_image(image, vit_model, transform, is_vit=True)
 
             # Récupérer le label réel
             real_label = labels_df[labels_df["image"] == selected_image]["label"].values[0]
@@ -153,6 +187,7 @@ except FileNotFoundError:
 except Exception as e:
     st.error(f"An unexpected error occurred: {e}")
     st.stop()
+
 
 
 
