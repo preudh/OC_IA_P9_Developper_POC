@@ -1,4 +1,5 @@
-# Projet P9 : Preuve de Concept - Classification d'Images avec VGG16 et ViT
+# Projet P9 : Preuve de Concept - Classification d'Images avec VGG16 (Modèle de base) et ViT (Vision Transformer - Modèle amélioré)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://monp9streamlit.westeurope.azurecontainer.io:8501)
 
 ## Objectifs du Projet
 L'objectif de ce projet est de concevoir une preuve de concept (PoC) visant à démontrer l'efficacité de modèles de
@@ -31,7 +32,7 @@ concept comprend :
 - L'application Streamlit a été conçue pour être simple et accessible, avec des couleurs contrastées et des composants intuitifs.
 
 ### 4. Environnement Reproductible
-- Un fichier `environment.yml` est fourni pour recréer l'environnement conda nécessaire à l'exécution du projet.
+- Un fichier "requirements.txt" est fourni pour installer les dépendances requises.
 
 ## Instructions pour l'Exécution
 ### Prérequis
@@ -40,10 +41,8 @@ concept comprend :
 
 ### Installation
 1. Clonez le dépôt GitHub :
-   ```bash
-   git clone <url-du-depot>
-   cd OC_IA_P9_Developper_POC
-   ```
+   
+   
 2. Créez l'environnement conda :
    ```bash
    conda env create -f environment.yml
@@ -53,6 +52,20 @@ concept comprend :
    ```bash
    streamlit run app.py
    ```
+ou 
+
+4. Via Docker
+
+## Builder l'image docker en local
+docker build -t mon-image:latest .
+
+# Tester l'image docker
+docker run -p 8501:8501 mon-image:latest
+  
+5. Pour le déploiement sur azure afin de simplifier le déploiement, nous avons utilisé Azure Container Instances (ACI)
+pour déployer notre application Streamlit. Comme il s'agit d'un POC(Proof of Concept) les data et models sont stockés dans le container.
+Normalement, il faudrait stocker les données et les modèles dans un stockage Azure Blob et l'application Streamlit dans un container. 
+mais la volumétrie des données étant faible, nous avons opté pour cette solution de facilité.
 
 ## Bibliothèques Utilisées
 Les bibliothèques essentielles incluent :
@@ -63,6 +76,6 @@ Les bibliothèques essentielles incluent :
 - **Pillow** : Pour le traitement des images.
 
 ## Déploiement
-- Déploiement sur Azure : [Lien vers l'Application]
-- Le déploiement peut être automatisé via GitHub Actions.
+- Déploiement sur Azure : http://monp9streamlit.westeurope.azurecontainer.io:8501
+- Le déploiement avec du MlOps pourrait être envisagé pour une mise en production via GitHub Actions et Azure.
 

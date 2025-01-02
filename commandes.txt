@@ -18,3 +18,11 @@ docker run -p 8501:8501 mon-image:latest
 docker ps
 docker stop 3a787c32f9a5
 docker run -p 8501:8501 mon-image:latest
+
+##commande pour déployer votre conteneur (comme il s"agit d'un conteneur docker, vous pouvez le déployer sur Azure Container Instances, les data et models peuvent être stockés dans un compte de stockage Azure Blob,
+mais pour le POC, les data et models peuvent être stockés dans le conteneur docker). Mettre suffisamment de mémoire et de CPU pour le conteneur.
+
+az container create --resource-group P9ResourceGroup --name mon-container-streamlit --image p9containerregistry.azurecr.io/mon-image:latest --registry-login-server p9containerregistry.azurecr.io --registry-username P9ContainerRegistry --registry-password "password" --ports 8501 --dns-name-label monp9streamlit --memory 4.0 --cpu 2
+
+# URL
+http://monp9streamlit.westeurope.azurecontainer.io:8501
