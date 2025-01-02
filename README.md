@@ -63,8 +63,8 @@ docker build -t mon-image:latest .
 docker run -p 8501:8501 mon-image:latest
   
 5. Pour le déploiement sur azure afin de simplifier le déploiement, nous avons utilisé Azure Container Instances (ACI)
-pour déployer notre application Streamlit. Comme il s'agit d'un POC(Proof of Concept) les data et models sont stockés dans le container.
-Normalement, il faudrait stocker les données et les modèles dans un stockage Azure Blob et l'application Streamlit dans un container. 
+pour déployer notre application Streamlit. Comme il s'agit d'un POC (Proof of Concept) les data et models sont stockés dans le container.
+Normalement, il faudrait stocker les données et les modèles dans un stockage Azure Blob et l'application Streamlit dans un container,
 mais la volumétrie des données étant faible, nous avons opté pour cette solution de facilité.
 
 ## Bibliothèques Utilisées
